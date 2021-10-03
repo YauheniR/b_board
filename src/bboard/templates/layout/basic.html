@@ -10,7 +10,7 @@
         объявленийс</title>
     {% bootstrap_css %}
     <link rel="stylesheet" type="text/css"
-    href="{% static 'bboard/style.css' %}">
+          href="{% static 'bboard/style.css' %}">
     {% bootstrap_javascript jquery='slim' %}
 </head>
 <body class="container-fluid">
@@ -21,24 +21,27 @@
     <ul class="col nav justify-content-end border">
         <li class="nav-item"><a class="nav-link"
                                 href="#">Регистрация</a></li>
-        <li class="nav-item dropdown">
+        {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"
                data-toggle="dropdown"
                href="#" role="button" aria-haspopup="true"
                aria-expanded="false">Профиль</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Мои
+                <a class="dropdown-item" href="{% url 'bboard:profile' %}">Мои
                     бьявления</a>
                 <a class="dropdown-item" href="#">Изменить личные данные</a>
                 <a class="dropdown-item" href="#">Изменить пароль</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Выйти</a>
+                <a class="dropdown-item" href="{% url "bboard:logout" %}">Выйти</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Удалить</a>
             </div>
         </li>
-        <li class="nav-item"><a class="nav-link"
-                                href="#">Вход</a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link"
+                                href="{% url 'bboard:login' %}">Вход</a></li>
+        {% endif %}
     </ul>
 </div>
 <div class="row">
@@ -52,8 +55,10 @@
         <span class="nav-link root font-weight-bold">Транспорт</span>
         <a class="nav-link" href="#">Легковой</a>
         <a class="nav-link" href="#">Грузовой</a>
+        <a class="nav-link root" href="{% url 'bboard:other' page='about' %}">
+            О сайте</a>
     </nav>
-    <section class="col border py-2">
+    <section class=" col border py-2">
         {% bootstrap_messages %}
         {% block content %}
         {% endblock %}

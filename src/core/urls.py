@@ -21,10 +21,7 @@ from django.views.decorators.cache import never_cache
 
 from core import settings
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include("bboard.urls"))
-]
+urlpatterns = [path("admin/", admin.site.urls), path("", include("bboard.urls"))]
 
 if settings.DEBUG:
     urlpatterns.append(path("static/<path:path>", never_cache(serve)))
