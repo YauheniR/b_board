@@ -85,7 +85,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
-AUTH_USER_MODEL = 'bboard.AdvUser'
+AUTH_USER_MODEL = "bboard.AdvUser"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -126,3 +126,5 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_PORT = 1025
