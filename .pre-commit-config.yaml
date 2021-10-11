@@ -1,0 +1,22 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 21.9b0
+    hooks:
+      - id: black
+        language_version: python
+
+  - repo: https://github.com/hadialqattan/pycln
+    rev: v1.0.3
+    hooks:
+      - id: pycln
+
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.6.0
+    hooks:
+      - id: reorder-python-imports
+
+  - repo: https://github.com/pre-commit/mirrors-pylint
+    rev: v3.0.0a4
+    hooks:
+    - id: pylint
+      args: [--disable=all, --enable=no-name-in-module,undefined-variable,eval-used]

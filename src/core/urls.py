@@ -13,15 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from core import settings
 from django.contrib import admin
 from django.contrib.staticfiles.views import serve
 from django.urls import include
 from django.urls import path
 from django.views.decorators.cache import never_cache
 
-from core import settings
-
-urlpatterns = [path("admin/", admin.site.urls), path("", include("bboard.urls"))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("accounts/", include("users.urls")),
+    path("", include("bboard.urls")),
+]
 
 if settings.DEBUG:
     urlpatterns.append(path("static/<path:path>", never_cache(serve)))
