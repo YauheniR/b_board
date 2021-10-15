@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os.path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     "bboard.apps.BboardConfig",
     "users.apps.UsersConfig",
     "bootstrap4",
+    "django_cleanup",
+    "easy_thumbnails",
 ]
 
 MIDDLEWARE = [
@@ -64,6 +67,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "bboard.middlewares.bboard_context_processor",
             ],
         },
     },
@@ -102,6 +106,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+THUMBNAIL_ALIASES = {
+    "": {
+        "default": {
+            "size": (96, 96),
+            "crop": "scale",
+        }
+    }
+}
+THUMBNAIL_BASEDIR = "thumbnails"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -119,7 +132,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 STATIC_URL = "/static/"
 
 # Default primary key field type

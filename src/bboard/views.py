@@ -15,3 +15,7 @@ def other_page(request, page):
     except TemplateDoesNotExist:
         raise Http404
     return HttpResponse(template.render(request=request))
+
+
+def by_rubric(request):
+    pass

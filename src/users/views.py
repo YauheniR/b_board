@@ -7,8 +7,10 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.views import PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetDoneView
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import ValidationError
 from django.core.signing import BadSignature
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -19,6 +21,7 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 from users.forms import ChangeUserInfoForm
 from users.forms import RegisterUserForm
+from users.forms import UsersPasswordResetForm
 from users.models import AdvUser
 from users.utilities import signer
 
@@ -76,16 +79,23 @@ class BBPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChan
 
 
 class BBPasswordResetView(PasswordResetView):
+    form_class = UsersPasswordResetForm
     template_name = "users/password_reset.html"
-    success_url = reverse_lazy("users:login")
-    success_message = "Вам на почту отправлено письмо для смены пароля"
-    form_class = PasswordResetForm
+    email_template_name = "email/password_reset_email.txt"
+    success_url = reverse_lazy("users:password_reset_done")
+
+
+class BBPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "users/password_reset_done.html"
 
 
 class BBPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = "users/password_reset_confirm.html"
-    success_url = reverse_lazy("users:login")
-    success_message = "Новый пароль сохранен!"
+    success_url = reverse_lazy("users:password_reset_complete")
+
+
+class BBPasswordResetCompleteView(TemplateView):
+    template_name = "users/password_reset_complete.html"
 
 
 class RegisterUserView(CreateView):

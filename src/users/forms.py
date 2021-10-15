@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import password_validation
+from django.contrib.auth.forms import PasswordResetForm
 from django.core.exceptions import ValidationError
 from users.apps import user_registered
 from users.models import AdvUser
@@ -26,6 +27,15 @@ class RegisterUserForm(forms.ModelForm):
 
     def clean(self):
         super().clean()
+        user = AdvUser.objects.filter(email=self.cleaned_data["email"])
+        if user:
+            errors = {
+                "email": ValidationError(
+                    "Пользователь с таким email уже зарегестрирован",
+                    code="email_registered",
+                )
+            }
+            raise ValidationError(errors)
         password1 = self.cleaned_data["password1"]
         password2 = self.cleaned_data["password2"]
         if password1 and password2 and password1 != password2:
@@ -65,3 +75,17 @@ class ChangeUserInfoForm(forms.ModelForm):
     class Meta:
         model = AdvUser
         fields = ("username", "email", "first_name", "last_name", "send_massages")
+
+
+class UsersPasswordResetForm(PasswordResetForm):
+    def clean(self):
+        super().clean()
+        user = AdvUser.objects.filter(email=self.cleaned_data["email"])
+        if not user:
+            errors = {
+                "email": ValidationError(
+                    "Пользователь с таким email не зарегестрирован",
+                    code="email_not_found",
+                )
+            }
+            raise ValidationError(errors)

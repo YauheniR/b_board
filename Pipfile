@@ -6,7 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 django-bootstrap4 = "*"
-instance = "*"
+easy-thumbnails = "*"
+django-cleanup = "*"
 
 [dev-packages]
 
