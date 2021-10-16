@@ -10,5 +10,10 @@ class AdvUser(AbstractUser):
         default=True, verbose_name="Слать оповещения о новых коментариях?"
     )
 
+    def delete(self, using=None, keep_parents=False):
+        for bb in self.bb_set.all():
+            bb.delete()
+        super().delete()
+
     class Meta:
         pass
