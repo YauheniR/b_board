@@ -10,6 +10,9 @@ from users.views import BBPasswordResetView
 from users.views import ChangeUserInfoView
 from users.views import DeleteUserView
 from users.views import profile
+from users.views import profile_bb_add
+from users.views import profile_bb_change
+from users.views import profile_bb_delete
 from users.views import profile_bb_detail
 from users.views import RegisterDoneView
 from users.views import RegisterUserView
@@ -41,6 +44,9 @@ urlpatterns = [
                     name="profile_change",
                 ),
                 path("delete/", DeleteUserView.as_view(), name="profile_delete"),
+                path("change/<int:pk>/", profile_bb_change, name="profile_bb_change"),
+                path("delete/<int:pk>/", profile_bb_delete, name="profile_bb_delete"),
+                path("add/", profile_bb_add, name="profile_bb_add"),
                 path("<int:pk>/", profile_bb_detail, name="profile_bb_detail"),
                 path("", profile, name="profile"),
             ]
