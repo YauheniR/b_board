@@ -1,3 +1,4 @@
+from bboard.models import Bb
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -28,7 +29,17 @@ from users.utilities import signer
 
 @login_required
 def profile(request):
-    return render(request, "users/profile.html")
+    bbs = Bb.objects.filter(author=request.user.pk)
+    context = {"bbs": bbs}
+    return render(request, "users/profile.html", context)
+
+
+@login_required
+def profile_bb_detail(request, pk):
+    bb = get_object_or_404(Bb, pk=pk)
+    ais = bb.additionalimage_set.all()
+    context = {"bb": bb, "ais": ais}
+    return render(request, "users/bb_detail.html", context)
 
 
 def user_activate(request, sign):

@@ -89,3 +89,7 @@ class UsersPasswordResetForm(PasswordResetForm):
                 )
             }
             raise ValidationError(errors)
+
+
+class SearchForm(forms.Form):
+    keyword = forms.CharField(required=False, max_length=20, label="")
