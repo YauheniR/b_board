@@ -11,6 +11,9 @@ django-cleanup = "*"
 django-simple-captcha = "*"
 author = "*"
 subject = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+serializer = "*"
 
 [dev-packages]
 
