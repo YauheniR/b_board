@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bboard.apps.BboardConfig",
     "users.apps.UsersConfig",
+    "comments.apps.CommentsConfig",
     "bootstrap4",
     "django_cleanup",
     "easy_thumbnails",
+    "captcha",
 ]
 
 MIDDLEWARE = [

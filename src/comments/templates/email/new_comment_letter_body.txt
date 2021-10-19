@@ -1,0 +1,7 @@
+Уважаемый пользователь {{ author.username }}!
+
+К вашему обьявлению {{ comment.bb.title }} оставлен коментарий пользователем {{ comment.author }}.
+
+{{ comment.content }}
+
+Ссылка на обьявление - {{ host }}{% url "bboard:detail" rubric_pk=comment.bb.rubric.pk pk=comment.bb.pk %}
