@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BbService } from "./bb.service";
 
 @Component({
   selector: 'app-bb-list',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bb-list.component.css']
 })
 export class BbListComponent implements OnInit {
+  bbs: any;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private bbservice: BbService) {
   }
 
+
+  ngOnInit(): void {
+    this.bbservice.getBbs().subscribe((bbs: Object[]) => {this.bbs = bbs;})
+  }
 }
