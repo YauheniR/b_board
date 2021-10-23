@@ -9,16 +9,25 @@ import { BbService } from "./bb.service";
   styleUrls: ['./bb-detail.component.css']
 })
 export class BbDetailComponent implements OnInit {
-  private bb: any;
-  private comments: any;
-  private author: String = '';
-  private password: String = '';
-  private content: String = '';
+  bb: any;
+  comments: any;
+  author: String = '';
+  password: String = '';
+  content: String = '';
 
   constructor(private bbservice: BbService, private ar: ActivatedRoute) { }
 
   getComments() {
     this.bbservice.getComment(this.bb.id).subscribe((comments: Object[]) => {this.comments = comments;})
+  }
+
+  submitComment() {
+    this.bbservice.addComment(this.bb.id, this.author, this.password, this.content).subscribe((comment: Object) => {
+      if (comment) {
+        this.content = "";
+        this.getComments();
+      }
+    })
   }
 
   ngOnInit(): void {
